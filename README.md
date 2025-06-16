@@ -14,15 +14,16 @@ To investigate abnormal traffic patterns originating from within the network, id
 ---
 # Table of contents
 
-- [Step 1) Create a Windows virtual machine in the Azure portal](#step-1-create-a-windows-virtual-machine-in-the-azure-portal)
-- [Step 2) Log into the VM and disable the Windows Firewall](#step-2-log-into-the-vm-and-disable-the-windows-firewall)
-- [Step 3) Run a PowerShell command:](#step-3-run-a-powershell-command)
-- [Step 4) Create a Network Security Group](#step-4-create-a-network-security-group)
-- [Step 5) Login to tenable](#step-5-login-to-tenable)
-- [Step 6) Run a Basic Scan: Unauthenticated](#step-6-run-a-basic-scan-unauthenticated)
-- [Step 7) Run a Basic Scan: Authenticated](#step-7-run-a-basic-scan-authenticated)
-- [Difference in Scan Duration](#difference-in-scan-duration)
-
+- [🛡️ Incident Report: Internal Port Scanning Activity on 10.0.0.0/16 Network](#-incident-report-internal-port-scanning-activity-on-1000016-network)
+- [1. Summary](#1-summary)
+- [2. Preparation](#2-preparation)
+- [3. Data Collection](#3-data-collection)
+- [4. Data Analysis](#4-data-analysis)
+- [5. Investigation](#5-investigation)
+- [6. Response](#6-response)
+- [7. MITRE ATT&CK Mapping](#7-mitre-attck-mapping)
+- [8. Lessons Learned / Improvement](#8-lessons-learned--improvement)
+- [9. Final Status](#9-final-status)
 ---
 
 
