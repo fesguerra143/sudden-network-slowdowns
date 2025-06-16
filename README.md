@@ -47,20 +47,15 @@ After ruling out external threats (e.g., DDoS), internal causes such as large fi
 A compromised internal host may be engaging in lateral movement or reconnaissance via port scanning.
 
 ## 3. Data Collection
-Data Sources Queried:
-
+### Data Sources Queried:
 DeviceNetworkEvents
-
 DeviceProcessEvents
-
 DeviceFileEvents
 
-Focus Areas:
+### Focus Areas:
 
 Failed network connections (potential scanning)
-
 Suspicious process executions
-
 File downloads or script execution activity
 
 ## 4. Data Analysis
