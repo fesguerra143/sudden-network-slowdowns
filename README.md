@@ -63,21 +63,13 @@ File downloads or script execution activity <br />
 Analyzed DeviceNetworkEvents for failed outbound connection attempts.
 
 ```kql
-DeviceProcessEvents
-| where DeviceName contains "windowsvm-ch25"
-| where AccountDomain == "windowsvm-ch25"
-| where ProcessCommandLine contains "EncodedCommand"
-| where Timestamp >= datetime(2025-01-29T17:03:59.3104497Z) 
-| sort by Timestamp desc  
-```
-
-kusto
-Copy
-Edit
 DeviceNetworkEvents
 | where ActionType == "ConnectionFailed"
 | summarize FailedConnectionsAttempts = count() by DeviceName, LocalIP
 | order by FailedConnectionsAttempts desc
+
+```
+
 Result: IP 10.0.0.5 exhibited an unusually high number of failed connections.
 
 ### Step 2:
