@@ -92,18 +92,23 @@ Finding:
 Connections were attempted to multiple ports in sequential order—indicating an automated port scan.
 
 ## 5. Investigation
-### Step 3:
+
 Pivoted to DeviceProcessEvents for host windows-target-1 and timestamp near suspicious activity:
 
-kusto
-Copy
-Edit
+```kql
+let VMName = "windows-target-1";
 let specificTime = datetime(2025-06-10T08:41:10.2458249Z);
 DeviceProcessEvents
 | where Timestamp between ((specificTime - 10m) .. (specificTime + 10m))
-| where DeviceName == "windows-target-1"
+| where DeviceName == VMName
+| where InitiatingProcessCommandLine contains "portscan"
 | order by Timestamp desc
 | project Timestamp, FileName, InitiatingProcessCommandLine, AccountName
+
+```
+![DeviceProcessEvents](https://github.com/user-attachments/assets/42402a97-5812-4ae5-9230-e88689618cbc)
+
+
 Key Finding:
 A PowerShell command was executed at 2025-06-10T08:37:51Z with the following line:
 
