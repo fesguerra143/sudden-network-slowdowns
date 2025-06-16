@@ -123,11 +123,11 @@ Executed by SYSTEM — not expected behavior; not triggered by any admin.
 ## 6. Response
 ### Actions Taken:
 
-Logged into the device to verify script existence.
-Confirmed the file portscan.ps1 existed under C:\ProgramData.
-Isolated the host from the network.
-Performed a full malware scan (no malware detected).
-Escalated to IT for reimaging of the device to ensure integrity.
+Logged into the device to verify script existence. <br />
+Confirmed the file portscan.ps1 existed under C:\ProgramData. <br />
+Isolated the host from the network. <br />
+Performed a full malware scan (no malware detected). <br />
+Escalated to IT for reimaging of the device to ensure integrity. <br />
 
 ## 7. MITRE ATT&CK Mapping
 
@@ -152,16 +152,16 @@ Escalated to IT for reimaging of the device to ensure integrity.
 ## 8. Lessons Learned / Improvement
 ### Preventive Measures:
 
-Implement internal network segmentation to reduce lateral movement risk.
-Restrict PowerShell usage via Group Policy or allow-listing.
-Apply egress controls and file reputation filtering for outbound web requests.
-Increase visibility over SYSTEM-level activities on endpoints.
+Implement internal network segmentation to reduce lateral movement risk. <br />
+Restrict PowerShell usage via Group Policy or allow-listing.<br />
+Apply egress controls and file reputation filtering for outbound web requests.<br />
+Increase visibility over SYSTEM-level activities on endpoints.<br />
 
 ### Detection Enhancements:
 
-Create alerts for abnormal outbound connection spikes.
-Monitor for suspicious PowerShell usage and external script downloads.
-Correlate failed connection logs with script execution patterns.
+Create alerts for abnormal outbound connection spikes.<br />
+Monitor for suspicious PowerShell usage and external script downloads.<br />
+Correlate failed connection logs with script execution patterns.<br />
 
 ## 9. Final Status
 Threat Contained: ✅
