@@ -62,6 +62,15 @@ File downloads or script execution activity <br />
 ### Step 1:
 Analyzed DeviceNetworkEvents for failed outbound connection attempts.
 
+```kql
+DeviceProcessEvents
+| where DeviceName contains "windowsvm-ch25"
+| where AccountDomain == "windowsvm-ch25"
+| where ProcessCommandLine contains "EncodedCommand"
+| where Timestamp >= datetime(2025-01-29T17:03:59.3104497Z) 
+| sort by Timestamp desc  
+```
+
 kusto
 Copy
 Edit
