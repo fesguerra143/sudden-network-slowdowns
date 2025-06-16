@@ -77,13 +77,17 @@ Result: IP 10.0.0.5 exhibited an unusually high number of failed connections.
 ### Step 2:
 Filtered for all failed connection timestamps for IP 10.0.0.5:
 
-kusto
-Copy
-Edit
+```kql
+let IPInQuestion = "10.0.0.5";
 DeviceNetworkEvents
 | where ActionType == "ConnectionFailed"
-| where LocalIP == "10.0.0.5"
-| order by Timestamp desc
+| where LocalIP == IPInQuestion
+| summarize FailedConnectionsAttempts = count() by DeviceName, ActionType, LocalIP
+| order by FailedConnectionsAttempts desc
+```
+
+![DeviceNetworkEvents2](https://github.com/user-attachments/assets/60bc672e-f34a-4e99-aa54-6af5995d8e13)
+
 Finding:
 Connections were attempted to multiple ports in sequential order—indicating an automated port scan.
 
