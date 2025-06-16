@@ -36,17 +36,17 @@ Affected Host: windows-target-1 (10.0.0.5)
 TTPs Observed: T1046, T1059.001, T1078, T1105, T1204.002
 Incident Status: Contained; Reimaging in progress
 
-2. Preparation
-Observation:
+## 2. Preparation
+### Observation:
 The server team reported network performance degradation affecting older devices on the 10.0.0.0/16 internal network.
 
-Initial Assumption:
+### Initial Assumption:
 After ruling out external threats (e.g., DDoS), internal causes such as large file transfers or port scanning were considered. The environment allows unrestricted internal traffic and the use of scripting tools like PowerShell.
 
-Hypothesis:
+### Hypothesis:
 A compromised internal host may be engaging in lateral movement or reconnaissance via port scanning.
 
-3. Data Collection
+## 3. Data Collection
 Data Sources Queried:
 
 DeviceNetworkEvents
@@ -63,8 +63,8 @@ Suspicious process executions
 
 File downloads or script execution activity
 
-4. Data Analysis
-Step 1:
+## 4. Data Analysis
+### Step 1:
 Analyzed DeviceNetworkEvents for failed outbound connection attempts.
 
 kusto
@@ -76,7 +76,7 @@ DeviceNetworkEvents
 | order by FailedConnectionsAttempts desc
 Result: IP 10.0.0.5 exhibited an unusually high number of failed connections.
 
-Step 2:
+### Step 2:
 Filtered for all failed connection timestamps for IP 10.0.0.5:
 
 kusto
@@ -89,8 +89,8 @@ DeviceNetworkEvents
 Finding:
 Connections were attempted to multiple ports in sequential order—indicating an automated port scan.
 
-5. Investigation
-Step 3:
+## 5. Investigation
+### Step 3:
 Pivoted to DeviceProcessEvents for host windows-target-1 and timestamp near suspicious activity:
 
 kusto
@@ -112,7 +112,7 @@ Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/.../portscan.ps1' -Out
 Account:
 Executed by SYSTEM — not expected behavior; not triggered by any admin.
 
-6. Response
+## 6. Response
 Actions Taken:
 
 Logged into the device to verify script existence.
@@ -125,7 +125,7 @@ Performed a full malware scan (no malware detected).
 
 Escalated to IT for reimaging of the device to ensure integrity.
 
-7. MITRE ATT&CK Mapping
+## 7. MITRE ATT&CK Mapping
 markdown
 Copy
 Edit
@@ -146,7 +146,7 @@ Edit
 
 - T1562.001 - Impair Defenses (if applicable)  
   (Not confirmed, but would apply if local defenses were bypassed or modified)
-8. Lessons Learned / Improvement
+## 8. Lessons Learned / Improvement
 Preventive Measures:
 
 Implement internal network segmentation to reduce lateral movement risk.
@@ -165,7 +165,7 @@ Monitor for suspicious PowerShell usage and external script downloads.
 
 Correlate failed connection logs with script execution patterns.
 
-9. Final Status
+## 9. Final Status
 Threat Contained: ✅
 
 Device Isolated: ✅
