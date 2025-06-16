@@ -14,7 +14,6 @@ To investigate abnormal traffic patterns originating from within the network, id
 ---
 # Table of contents
 
-- [🛡️ Incident Report: Internal Port Scanning Activity on 10.0.0.0/16 Network](#-incident-report-internal-port-scanning-activity-on-1000016-network)
 - [1. Summary](#1-summary)
 - [2. Preparation](#2-preparation)
 - [3. Data Collection](#3-data-collection)
