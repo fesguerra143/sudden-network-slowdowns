@@ -48,15 +48,15 @@ A compromised internal host may be engaging in lateral movement or reconnaissanc
 
 ## 3. Data Collection
 ### Data Sources Queried:
-DeviceNetworkEvents
-DeviceProcessEvents
-DeviceFileEvents
+DeviceNetworkEvents <br />
+DeviceProcessEvents <br />
+DeviceFileEvents <br />
 
 ### Focus Areas:
 
-Failed network connections (potential scanning)
-Suspicious process executions
-File downloads or script execution activity
+Failed network connections (potential scanning) <br />
+Suspicious process executions <br />
+File downloads or script execution activity <br />
 
 ## 4. Data Analysis
 ### Step 1:
