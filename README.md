@@ -1,16 +1,15 @@
 
 
-# Scanning for Vulnerabilities Project 
-
-This project is about Scanning a Windows VM: Authenticated vs. Unauthenticated
-
-![Scanning Windows Authenticated vs Unauthenticated](https://github.com/user-attachments/assets/0475b1a7-3e0e-40a8-9341-08d97ee65d6e)
+# Sudden Network Slowdowns Project 
+# Objective:
+To investigate abnormal traffic patterns originating from within the network, identify any signs of lateral movement or misuse of built-in tools (e.g., PowerShell), and validate whether an internal host is responsible for the performance degradation.
 
 ---
 # Tools & Technology:
-- Tenable (enterprise vulnerability management platform)
 - Azure Virtual Machine
 - PowerShell 
+- Microsoft Defender
+- KQL Query
 
 ---
 # Table of contents
