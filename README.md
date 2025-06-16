@@ -65,10 +65,12 @@ Analyzed DeviceNetworkEvents for failed outbound connection attempts.
 ```kql
 DeviceNetworkEvents
 | where ActionType == "ConnectionFailed"
-| summarize FailedConnectionsAttempts = count() by DeviceName, LocalIP
-| order by FailedConnectionsAttempts desc
+| summarize ConnectionCount = count() by DeviceName, ActionType, LocalIP, RemoteIP
+| order by ConnectionCount
 
 ```
+![DeviceNetworkEvents](https://github.com/user-attachments/assets/2fdfee8a-937d-4300-97eb-d34024aa24ec)
+
 
 Result: IP 10.0.0.5 exhibited an unusually high number of failed connections.
 
