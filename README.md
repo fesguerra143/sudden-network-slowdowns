@@ -121,22 +121,16 @@ Account:
 Executed by SYSTEM — not expected behavior; not triggered by any admin.
 
 ## 6. Response
-Actions Taken:
+### Actions Taken:
 
 Logged into the device to verify script existence.
-
 Confirmed the file portscan.ps1 existed under C:\ProgramData.
-
 Isolated the host from the network.
-
 Performed a full malware scan (no malware detected).
-
 Escalated to IT for reimaging of the device to ensure integrity.
 
 ## 7. MITRE ATT&CK Mapping
-markdown
-Copy
-Edit
+
 - T1046 - Network Service Discovery  
   (Port scanning activity to identify open services)
 
@@ -154,23 +148,19 @@ Edit
 
 - T1562.001 - Impair Defenses (if applicable)  
   (Not confirmed, but would apply if local defenses were bypassed or modified)
+  
 ## 8. Lessons Learned / Improvement
-Preventive Measures:
+### Preventive Measures:
 
 Implement internal network segmentation to reduce lateral movement risk.
-
-Restrict PowerShell usage via GPO or allow-listing.
-
+Restrict PowerShell usage via Group Policy or allow-listing.
 Apply egress controls and file reputation filtering for outbound web requests.
-
 Increase visibility over SYSTEM-level activities on endpoints.
 
-Detection Enhancements:
+### Detection Enhancements:
 
 Create alerts for abnormal outbound connection spikes.
-
 Monitor for suspicious PowerShell usage and external script downloads.
-
 Correlate failed connection logs with script execution patterns.
 
 ## 9. Final Status
