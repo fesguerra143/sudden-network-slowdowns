@@ -26,7 +26,7 @@ To investigate abnormal traffic patterns originating from within the network, id
 ---
 
 
-# 🛡️ Incident Report: Internal Port Scanning Activity on 10.0.0.0/16 Network
+### 🛡️ Incident Report: Internal Port Scanning Activity on 10.0.0.0/16 Network
 ## 1. Summary
 Incident Title: Unauthorized Internal Port Scanning via PowerShell <br />
 Date of Discovery: June 10, 2025 <br />
