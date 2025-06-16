@@ -28,13 +28,13 @@ To investigate abnormal traffic patterns originating from within the network, id
 
 # 🛡️ Incident Report: Internal Port Scanning Activity on 10.0.0.0/16 Network
 ## 1. Summary
-Incident Title: Unauthorized Internal Port Scanning via PowerShell
-Date of Discovery: June 10, 2025
-Reporting Team: Security Operations / Threat Hunting
-Impacted Network Segment: 10.0.0.0/16
-Affected Host: windows-target-1 (10.0.0.5)
-TTPs Observed: T1046, T1059.001, T1078, T1105, T1204.002
-Incident Status: Contained; Reimaging in progress
+Incident Title: Unauthorized Internal Port Scanning via PowerShell <br />
+Date of Discovery: June 10, 2025 <br />
+Reporting Team: Security Operations / Threat Hunting <br />
+Impacted Network Segment: 10.0.0.0/16 <br />
+Affected Host: windows-target-1 (10.0.0.5) <br />
+TTPs Observed: T1046, T1059.001, T1078, T1105, T1204.002 <br />
+Incident Status: Contained; Rebuilt/ Re-imaging  <br />
 
 ## 2. Preparation
 ### Observation:
