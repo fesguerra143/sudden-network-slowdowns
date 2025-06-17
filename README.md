@@ -120,6 +120,11 @@ Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/joshmadakor1/lognpacif
 Account:
 Executed by SYSTEM — not expected behavior; not triggered by any admin.
 
+I logged into the suspect computer and observed the powershell script that was used to conduct the port scan:
+
+![portscan](https://github.com/user-attachments/assets/ba71f03c-5e53-4fab-bf31-743708f8d6d2)
+
+
 ## 6. Response
 ### Actions Taken:
 
