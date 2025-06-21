@@ -57,13 +57,16 @@ A compromised internal host may be engaging in lateral movement or reconnaissanc
 #### DeviceFileEvents 
 ![DataCollection3](https://github.com/user-attachments/assets/f53e8661-60e6-45a2-97f1-409192e3a672)
 
+
+
+## 4. Data Analysis
+
 ### Focus Areas:
 
 - Failed network connections (potential scanning) 
 - Suspicious process executions
 - File downloads or script execution activity
-
-## 4. Data Analysis
+- 
 ### Step 1:
 Analyzed DeviceNetworkEvents for failed outbound connection attempts.
 
@@ -74,7 +77,8 @@ DeviceNetworkEvents
 | order by ConnectionCount
 
 ```
-![DeviceNetworkEvents](https://github.com/user-attachments/assets/2fdfee8a-937d-4300-97eb-d34024aa24ec)
+
+![DataCollection4](https://github.com/user-attachments/assets/d067d36d-1ea9-4c6f-8933-97b668d4e367)
 
 
 Result: IP 10.0.0.5 exhibited an unusually high number of failed connections.
