@@ -1,6 +1,8 @@
 
 
 # Sudden Network Slowdowns Project 
+## 🛡️ Incident Report: Internal Port Scanning Activity on 10.0.0.0/16 Network
+
 # Objective:
 To investigate abnormal traffic patterns originating from within the network, identify any signs of lateral movement or misuse of built-in tools (e.g., PowerShell), and validate whether an internal host is responsible for the performance degradation.
 
@@ -26,7 +28,7 @@ To investigate abnormal traffic patterns originating from within the network, id
 ---
 
 
-## 🛡️ Incident Report: Internal Port Scanning Activity on 10.0.0.0/16 Network
+
 ## 1. Summary
 Incident Title: Unauthorized Internal Port Scanning via PowerShell <br />
 Date of Discovery: June 10, 2025 <br />
