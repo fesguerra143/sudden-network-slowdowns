@@ -91,11 +91,11 @@ let IPInQuestion = "10.0.0.5";
 DeviceNetworkEvents
 | where ActionType == "ConnectionFailed"
 | where LocalIP == IPInQuestion
-| summarize FailedConnectionsAttempts = count() by DeviceName, ActionType, LocalIP
-| order by FailedConnectionsAttempts desc
+| order by Timestamp desc
 ```
+![DataCollection5](https://github.com/user-attachments/assets/55159acf-f97d-47e9-b5f4-d60283a8ec1c)
 
-![DeviceNetworkEvents2](https://github.com/user-attachments/assets/60bc672e-f34a-4e99-aa54-6af5995d8e13)
+
 
 Finding:
 Connections were attempted to multiple ports in sequential order—indicating an automated port scan.
