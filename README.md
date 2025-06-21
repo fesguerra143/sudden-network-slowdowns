@@ -21,7 +21,7 @@ To investigate abnormal traffic patterns originating from within the network, id
 - [5. Investigation](#5-investigation)
 - [6. Response](#6-response)
 - [7. MITRE ATT&CK Mapping](#7-mitre-attck-mapping)
-- [8. Lessons Learned / Improvement](#8-lessons-learned--improvement)
+- [8. Lessons Learned / Improvement:](#8-lessons-learned--improvement)
 - [9. Final Status](#9-final-status)
 ---
 
@@ -161,8 +161,12 @@ I logged into the suspect computer and observed the powershell script that was u
 
 - T1562.001 - Impair Defenses (if applicable)  
   (Not confirmed, but would apply if local defenses were bypassed or modified)
-  
-## 8. Final Status
+
+## 8. Lessons Learned / Improvement: 
+
+Review PowerShell execution policies and endpoint monitoring rules
+
+## 9. Final Status
 
 Threat Contained: ✅
 
