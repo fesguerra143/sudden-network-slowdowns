@@ -176,7 +176,7 @@ Malware Scan Result: Clean
 
 Device Action: Ticket submitted for full rebuild
 
-Lessons Learned / Improvement: Review PowerShell execution policies and endpoint monitoring rules
+
 
 
 
