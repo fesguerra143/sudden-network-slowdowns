@@ -162,21 +162,8 @@ I logged into the suspect computer and observed the powershell script that was u
 - T1562.001 - Impair Defenses (if applicable)  
   (Not confirmed, but would apply if local defenses were bypassed or modified)
   
-## 8. Lessons Learned / Improvement
-### Preventive Measures:
+## 8. Final Status
 
-- Implement internal network segmentation to reduce lateral movement risk. 
-- Restrict PowerShell usage via Group Policy or allow-listing.
-- Apply egress controls and file reputation filtering for outbound web requests.
-- Increase visibility over SYSTEM-level activities on endpoints.
-
-### Detection Enhancements:
-
-- Create alerts for abnormal outbound connection spikes.
-- Monitor for suspicious PowerShell usage and external script downloads.
-- Correlate failed connection logs with script execution patterns.
-
-## 9. Final Status
 Threat Contained: ✅
 
 Device Isolated: ✅
@@ -185,6 +172,7 @@ Malware Scan Result: Clean
 
 Device Action: Ticket submitted for full rebuild
 
-Follow-up: Review PowerShell execution policies and endpoint monitoring rules
+Lessons Learned / Improvement: Review PowerShell execution policies and endpoint monitoring rules
+
 
 
