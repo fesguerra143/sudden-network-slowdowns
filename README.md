@@ -48,13 +48,13 @@ A compromised internal host may be engaging in lateral movement or reconnaissanc
 
 ## 3. Data Collection
 ### Data Sources Queried:
-- DeviceNetworkEvents
+#### DeviceNetworkEvents
   ![DataCollection1](https://github.com/user-attachments/assets/74d73fd3-8472-4d27-a1cc-59aafc29736d)
 
-- DeviceProcessEvents
+#### DeviceProcessEvents
   ![DataCollection2](https://github.com/user-attachments/assets/b8cacdcc-dac6-4469-856d-d19205730b9e)
 
-- DeviceFileEvents 
+#### DeviceFileEvents 
 ![DataCollection3](https://github.com/user-attachments/assets/f53e8661-60e6-45a2-97f1-409192e3a672)
 
 ### Focus Areas:
